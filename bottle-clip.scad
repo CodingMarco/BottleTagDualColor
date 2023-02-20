@@ -36,6 +36,17 @@ include <write/Write.scad>
  *    height of the name tag.
  * font: the path to a font for Write.scad.
  */
+
+
+
+name = "name";
+logo_offset = 0;
+logo_size = 1.0;
+offset_text = 0.0;
+text_stretch = 1.0;
+
+do_main = true;
+logo = "logos/selfnet.dxf";
  
 $fn=100;
 
@@ -48,12 +59,12 @@ module text_and_logo(ru, rl, ht, font, logo, name)
     }
     else
     {
-        writecylinder(name, [0,0,0], rl+0.5, ht/13*7, h=ht/13*4,
+        writecylinder(name, [0,0,0], rl-2*text_stretch, ht/13*7+offset_text, h=ht/13*4,
             t=max(rl,ru), font=font);
         translate([0,0,ht*3/4-0.1])
             rotate([90,0,0])
-            scale([ht/100,ht/100,1])
-            translate([-25,-30,0.5])
+            scale([ht/130*logo_size,ht/130*logo_size,1])
+            translate([-25,-35+logo_offset,0.5])
             linear_extrude(height=max(ru,rl)*2)
             import(logo);
     }
@@ -104,22 +115,25 @@ module bottle_clip(ru, rl, ht, width, name, gap, logo, font, do_main_cylinder)
     }
 }
 
-module bottle_clip_main(ru=13, rl=17.5, ht=26, width=2.5, name="", gap=90,
+module bottle_clip_main(ru=13, rl=17.5, ht=26, width=1.8, name="", gap=90,
     logo="logos/selfnet.dxf", font="write/orbitron.dxf")
 {
     bottle_clip(ru, rl, ht, width, name, gap,
         logo, font, do_main_cylinder=true);
 }
 
-module bottle_clip_text_and_logo(ru=13, rl=17.5, ht=26, width=2.5, name="", gap=90,
+module bottle_clip_text_and_logo(ru=13, rl=17.5, ht=26, width=1.8, name="", gap=90,
     logo="logos/selfnet.dxf", font="write/orbitron.dxf")
 {
     bottle_clip(ru, rl, ht, width, name, gap,
         logo, font, do_main_cylinder=false);
 }
 
-bottle_clip_main(name="Name", logo="logos/selfnet.dxf");
-//bottle_clip_text_and_logo(name="Name", logo="logos/selfnet.dxf");
+
+if (do_main)
+    bottle_clip_main(name=name, logo=logo);
+else
+    bottle_clip_text_and_logo(name=name, logo=logo);
 
 
 

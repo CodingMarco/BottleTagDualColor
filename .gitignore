@@ -1,5 +1,5 @@
 *.stl
 out*
 *.gcode
-
+*.3mf
 
