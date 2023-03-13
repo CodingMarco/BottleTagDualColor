@@ -118,14 +118,14 @@ module bottle_clip(ru, rl, ht, width, name, gap, logo, font, do_main_cylinder)
 module bottle_clip_main(ru=13, rl=17.5, ht=26, width=1.8, name="", gap=90,
     logo="logos/selfnet.dxf", font="write/orbitron.dxf")
 {
-    bottle_clip(ru, rl, ht, width, name, gap,
+    rotate([0, 0, 45]) bottle_clip(ru, rl, ht, width, name, gap,
         logo, font, do_main_cylinder=true);
 }
 
 module bottle_clip_text_and_logo(ru=13, rl=17.5, ht=26, width=1.8, name="", gap=90,
     logo="logos/selfnet.dxf", font="write/orbitron.dxf")
 {
-    bottle_clip(ru, rl, ht, width, name, gap,
+    rotate([0, 0, 45]) bottle_clip(ru, rl, ht, width, name, gap,
         logo, font, do_main_cylinder=false);
 }
 
